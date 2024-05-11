@@ -64,11 +64,14 @@ void insertTreeMap(TreeMap * tree, void* key, void * value)
 
             if (tree -> lower_than(key, tmp -> pair -> key))
             {
-                TreeNode* aux = createTreeNode(key, value);
-                aux -> parent = tmp;
-                tmp -> left = aux;
-                tree -> current = aux;
-                return;
+                if (tmp -> right == NULL)
+                {
+                    TreeNode* aux = createTreeNode(key, value);
+                    aux -> parent = tmp;
+                    tmp -> left = aux;
+                    tree -> current = aux;
+                    return;
+                }
             }
             
             if (tmp -> left != NULL)
