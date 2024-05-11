@@ -217,7 +217,7 @@ Pair * upperBound(TreeMap * tree, void* key)
         return nodeID -> pair;
     }
     
-    return NULL;
+    else return NULL;
 }
 
 Pair * firstTreeMap(TreeMap * tree) 
@@ -235,6 +235,37 @@ Pair * firstTreeMap(TreeMap * tree)
     return node -> pair;
 }
 
-Pair * nextTreeMap(TreeMap * tree) {
-    return NULL;
+Pair * nextTreeMap(TreeMap * tree) 
+{
+    if (tree == NULL || tree -> current == NULL) return NULL;
+
+    TreeNode *node = tree -> current;
+
+    if (node -> right != NULL)
+    {
+        node = node -> right;
+
+        while (node -> left != NULL)
+            {
+                node = node -> left;
+            }
+        tree -> current = node;
+        return node -> pair;
+    }
+    else
+    {
+        TreeNode *aux = node -> parent;
+
+        while (aux != NULL && node == aux -> right)
+            {
+                node = aux;
+                aux = aux -> parent;
+            }
+
+        tree -> current = aux;
+
+        if (aux != NULL) return aux -> pair;
+
+        else return NULL;
+    }
 }
